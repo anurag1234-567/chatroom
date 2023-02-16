@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+*{
+  margin:0px; padding:0px;
+   box-sizing:border-box;
+   font-family: 'Roboto', sans-serif;
+   font-size:14px;
+}
+#chatbox{
+    border:1px solid black;
+    border-radius:10px;
+    margin:2% auto;
+    width:60%;
+}
+#navbar{
+    border-bottom:1px solid black;
+    border-radius:10px;
+    text-align:center;
+    padding:6px; font-size:22px;
+    background:rgb(227, 102, 227);
+    color:white;
+}
+#msgbody{
+    height:300px;
+    overflow-y:auto;
+    background:rgb(227,102,227,0.1);
+    padding-bottom:10px;
+}
+input[type="text"]{
+    padding:8px; width:88%;
+    margin-right:1%;
+}
+.incoming-msg{
+max-width:58%; font-size:14px;
+margin-top:15px; margin-left:12px;
+float:left; clear:both;
+}
+.outgoing-msg{
+    max-width:58%; font-size:14px;
+    margin-top:15px;
+    margin-right:12px;
+    float:right; clear:both;
+}
+#btn{
+    font-size:14px;
+    width:10%; border-radius:10px;
+    border:1px solid rgb(168, 167, 167);
+    padding:8px;
+}
+p{
+    border:1px solid black;
+    padding:8px;
+    border-radius:20px;
+}
+.outgoing-msg p{
+    background:#f5ccff;
+}
+.incoming-msg p{
+    background:#fae6ff;
+}
+.outgoing-msg h4{
+    padding-right:15px;
+    text-align:right;
+    margin-bottom:3px;
+}
+.incoming-msg h4{
+    text-align:left;
+    padding-left:12px;
+    margin-bottom:3px;
+}
+.update{
+    display:float; clear:both;
+    text-align:center;
+}
+.update p{
+    display:inline-block;
+    padding:1px 10px;
+    border-radius:12px;
+    margin-top:15px;
+    background:rgba(80, 80, 80, 0.1);
+}

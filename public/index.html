@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<body>
+    <div id="chatbox">
+      <div id="navbar">ChatRoom</div>
+      <div id="msgbody">
+          <!-- <div class="incoming-msg">
+            <h4>Aditya</h4>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum debitis quisquam eos asperiores, distinctio ipsum nulla culpa omnis cupiditate iusto ipsa, iste temporibus suscipit aliquam libero in rem corporis cumque?</p>
+          </div>
+          
+          <div class="outgoing-msg">
+            <h4>Sourav</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum eveniet aperiam magnam magni fugiat perferendis enim totam dolore ea repellat.</p>
+         </div>
+         <div class="update">
+            <p>anurag joined</p>
+         </div>
+         <div class="outgoing-msg">
+          <h4>Sourav</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum eveniet aperiam magnam magni fugiat perferendis enim totam dolore ea repellat.</p>
+       </div>
+       <div class="outgoing-msg">
+        <h4>Sourav</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum eveniet aperiam magnam magni fugiat perferendis enim totam dolore ea repellat.</p>
+     </div>
+     <div class="outgoing-msg">
+      <h4>Sourav</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum eveniet aperiam magnam magni fugiat perferendis enim totam dolore ea repellat.</p>
+   </div> -->
+        </div>
+      <div id="footer">
+        <input type="text" name="message" id="textfield" placeholder="type text here">
+        <button type="button" id="btn">send</button>
+      </div>
+    </div>
+</body>
+   <script>
+     let name;
+     do{
+       name=prompt('enter your name');
+     }while(!name)
+
+      const socket=io();
+      let msgbody=document.getElementById('msgbody');
+      let send=document.getElementById('btn');
+      let msg;  
+
+      socket.emit('user-joined',name);
+
+      //send message
+      send.addEventListener('click',()=>{
+        msg=document.getElementById('textfield').value;
+        if(msg.length<1) return;
+        document.getElementById('textfield').value='';
+
+        var ob={ nm:name, mg:msg };
+        socket.emit('message',ob);
+
+        var ele=document.createElement('div');
+        ele.setAttribute('class','outgoing-msg');
+        ele.innerHTML=`<h4>You</h4>
+        <p>${msg}</p>`;
+        msgbody.appendChild(ele);
+        msgbody.scrollTop=msgbody.scrollHeight;
+
+      });
+
+    //receive message
+    socket.on('message',(ob)=>{
+      var ele=document.createElement('div');
+      ele.setAttribute('class','incoming-msg');
+      ele.innerHTML=`<h4>${ob.nm}</h4>
+      <p>${ob.mg}</p>`;
+      msgbody.appendChild(ele);
+      msgbody.scrollTop=msgbody.scrollHeight;
+    });
+
+    //new user
+    socket.on('user-joined',(name)=>{
+      var ele=document.createElement('div');
+      ele.setAttribute('class','update');
+      ele.innerHTML=`<p>${name} joined</p>`;
+      msgbody.appendChild(ele);
+      msgbody.scrollTop=msgbody.scrollHeight;
+    });
+
+    //user left
+    socket.on('user-left',(name)=>{
+      var ele=document.createElement('div');
+      ele.setAttribute('class','update');
+      ele.innerHTML=`<p>${name} left</p>`;
+      msgbody.appendChild(ele);
+      msgbody.scrollTop=msgbody.scrollHeight;
+    });
+
+   </script>
+
+</html>
